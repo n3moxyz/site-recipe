@@ -203,6 +203,20 @@ type UiPattern = (typeof uiPatterns)[number]['id'];
 type MotionLevel = (typeof motionLevels)[number]['id'];
 type AccessOption = (typeof accessOptions)[number]['id'];
 
+function IngredientMiniature({ pattern }: { pattern: UiPattern }) {
+  return (
+    <span
+      className={`scene-ingredient scene-ingredient--${pattern}`}
+      data-ingredient={pattern}
+    >
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
+
 export default function Home() {
   const [projectName, setProjectName] = useState(starterIdeas[0].name);
   const [idea, setIdea] = useState(starterIdeas[0].idea);
@@ -249,13 +263,23 @@ export default function Home() {
   const AccessPreviewIcon =
     accessOptions.find((item) => item.id === access)?.Icon ?? KeyRound;
 
-  const selectedSectionLabels = pageSections
-    .filter((item) => sections.includes(item.id))
-    .map((item) => item.label);
+  const selectedSectionLabels = useMemo(
+    () =>
+      pageSections
+        .filter((item) => sections.includes(item.id))
+        .map((item) => item.label),
+    [sections],
+  );
 
-  const selectedPatternLabels = uiPatterns
-    .filter((item) => patterns.includes(item.id))
-    .map((item) => item.label);
+  const selectedPatternItems = useMemo(
+    () => uiPatterns.filter((item) => patterns.includes(item.id)),
+    [patterns],
+  );
+
+  const selectedPatternLabels = useMemo(
+    () => selectedPatternItems.map((item) => item.label),
+    [selectedPatternItems],
+  );
 
   const generatedPrompt = useMemo(
     () => `Build a ${shapeLabel.toLowerCase()} called “${projectName || 'Untitled site'}” with a ${directionLabel.toLowerCase()} visual direction.
@@ -918,9 +942,14 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                     <b key={section} />
                   ))}
                 </span>
-                <span className="scene-patterns">
-                  {patterns.slice(0, 6).map((pattern) => (
-                    <b key={pattern} />
+                <span
+                  className={`scene-ingredients scene-ingredients--${Math.min(selectedPatternItems.length, 6)}`}
+                >
+                  {selectedPatternItems.slice(0, 6).map((pattern) => (
+                    <IngredientMiniature
+                      key={pattern.id}
+                      pattern={pattern.id}
+                    />
                   ))}
                 </span>
                 <span className="scene-access">
@@ -992,10 +1021,15 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
             </dl>
             <output className="sr-only" aria-live="polite">
               Brief updated. {direction ? directionLabel : 'No'} direction,{' '}
-              {siteShape ? shapeLabel : 'no page shape'},{' '}
-              {selectedSectionLabels.length} page sections,{' '}
-              {selectedPatternLabels.length} UI ingredients,{' '}
-              {motion ? motionLabel : 'no'} motion, and{' '}
+              {siteShape ? shapeLabel : 'no page shape'}, page sections:{' '}
+              {selectedSectionLabels.length
+                ? selectedSectionLabels.join(', ')
+                : 'not chosen'}
+              . UI ingredients:{' '}
+              {selectedPatternLabels.length
+                ? selectedPatternLabels.join(', ')
+                : 'not chosen'}
+              . {motion ? motionLabel : 'no'} motion, and{' '}
               {access ? accessLabel : 'no access choice'}.
             </output>
             <p className="ticket-note">

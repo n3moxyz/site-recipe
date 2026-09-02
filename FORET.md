@@ -38,6 +38,7 @@ The MVP is a single Vinext/React route. Curated options live locally as typed da
 - The sticky build ticket is the walkthrough's persistent feedback surface; every choice updates it immediately.
 - On wide screens the ticket is capped to the available viewport and scrolls independently; below 980px it returns to normal document flow.
 - The ticket lists every selected section and UI pattern by name, while its miniature preview also reflects direction, shape, selection counts, motion, and access.
+- Part 4 selections render as recognizable miniature UI specimens in catalog order—bento, tabs, accordion, carousel, dialog, and command palette—with a six-item cap and reduced-motion-safe entry feedback.
 - The generated prompt is intentionally deterministic so the same recipe always produces the same brief.
 - CSS previews communicate visual direction, UI patterns, and motion without making external assets part of the critical path.
 - Desktop and narrow mobile layouts must remain usable without horizontal overflow, and motion respects `prefers-reduced-motion`.
