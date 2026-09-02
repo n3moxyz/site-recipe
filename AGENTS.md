@@ -30,10 +30,9 @@ Use Node.js 22.13 or newer. No environment variables are required for the MVP.
 
 ## Working rules
 
-- Read `DESIGN.md` before visual work once it exists; do not drift from it without approval.
+- Read `DESIGN.md` and `.impeccable.md` before visual work; do not drift from them without approval.
 - Keep the critical path client-side and deterministic for the hackathon MVP.
 - Use semantic HTML, visible focus, keyboard-operable choices, and reduced-motion fallbacks.
 - Do not copy screenshots, animations, or proprietary prompts from reference catalogs.
 - Keep selections small and curated. This is a decision funnel, not a searchable encyclopedia.
 - Preserve the one-page, under-two-minute completion goal unless scope is explicitly expanded.
-

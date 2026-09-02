@@ -37,4 +37,3 @@ The MVP helps a beginner:
 7. Copy a structured prompt for ChatGPT Sites.
 
 Reference material includes [Name That UI](https://namethatui.com/), [shadcn/ui](https://ui.shadcn.com/), [Motion Sites](https://motionsites.ai/), and [Awwwards](https://www.awwwards.com/). We borrow vocabulary and interaction ideas, not protected assets or copied designs.
-

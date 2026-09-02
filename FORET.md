@@ -14,6 +14,7 @@ The MVP is a single Vinext/React route. Curated options live locally as typed da
 - shadcn/ui informs the split between small components and assembled sections.
 - Motion Sites informs previewable motion directions.
 - Awwwards informs the final taste and quality checklist without importing award-site spectacle.
+- Manus Creator Program informs the promise → choices → examples → action progression.
 
 ## Experience goals
 
@@ -30,11 +31,18 @@ The MVP is a single Vinext/React route. Curated options live locally as typed da
 - Components: generated shadcn primitives in `components/ui/`.
 - Hosting: ChatGPT Sites via `.openai/hosting.json`.
 - Persistence/authentication: none in the MVP; access methods are planning choices only.
+- Sharing: a custom 1200 × 630 social card lives at `public/og.png`.
+
+## Implementation notes
+
+- The sticky build ticket is the walkthrough's persistent feedback surface; every choice updates it immediately.
+- The generated prompt is intentionally deterministic so the same recipe always produces the same brief.
+- CSS previews communicate visual direction, UI patterns, and motion without making external assets part of the critical path.
+- Desktop and narrow mobile layouts must remain usable without horizontal overflow, and motion respects `prefers-reduced-motion`.
 
 ## Known boundaries
 
 - Do not implement real OAuth, email codes, phone OTP, or role management during the hackathon slice.
 - Do not depend on live external catalogs for the critical path.
 - Do not turn the page into a comprehensive design reference library.
-- Event-specific framing and final visual direction will be added from the organizer's Luma page and creator input.
-
+- Event-specific framing can be added later without changing the decision funnel.
