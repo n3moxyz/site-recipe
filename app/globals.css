@@ -96,9 +96,22 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+.recipe-ticket:focus-visible {
   outline: 3px solid var(--blue);
   outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .site-header {
@@ -1250,6 +1263,33 @@ h1 em {
   }
 }
 
+@keyframes brief-pulse {
+  50% {
+    opacity: 0.62;
+    transform: translateX(4px);
+  }
+}
+
+@keyframes brief-lift {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .window-scene--motion-subtle .scene-action {
+    animation: brief-pulse 3.2s ease-in-out infinite;
+  }
+
+  .window-scene--motion-expressive .scene-action {
+    animation: brief-pulse 1.6s ease-in-out infinite;
+  }
+
+  .window-scene--motion-expressive .scene-card--one {
+    animation: brief-lift 2.2s ease-in-out infinite;
+  }
+}
+
 .recipe-rail {
   position: relative;
   min-width: 0;
@@ -1260,11 +1300,29 @@ h1 em {
 .recipe-ticket {
   position: sticky;
   top: 116px;
+  max-height: calc(100vh - 148px);
+  max-height: calc(100dvh - 148px);
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--ink) transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
   padding: 20px;
   border: 1px solid var(--ink);
   border-radius: 14px;
   background: white;
   box-shadow: 8px 8px 0 var(--ink);
+}
+
+.recipe-ticket::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recipe-ticket::-webkit-scrollbar-thumb {
+  border: 2px solid white;
+  border-radius: 999px;
+  background: var(--ink);
 }
 
 .ticket-topline {
@@ -1374,6 +1432,111 @@ h1 em {
   right: 18px;
 }
 
+.scene-sections,
+.scene-patterns,
+.scene-access {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+}
+
+.scene-sections {
+  bottom: 24px;
+  left: 26px;
+  width: calc(50% - 38px);
+  height: 16px;
+  align-items: end;
+  gap: 3px;
+}
+
+.scene-sections b {
+  display: block;
+  min-width: 2px;
+  height: 55%;
+  flex: 1;
+  border-radius: 1px 1px 0 0;
+  background: currentColor;
+  opacity: 0.72;
+}
+
+.scene-sections b:nth-child(2n) {
+  height: 100%;
+}
+
+.scene-sections b:nth-child(3n) {
+  height: 74%;
+}
+
+.scene-patterns {
+  right: 25px;
+  bottom: 26px;
+  width: calc(50% - 38px);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.scene-patterns b {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: transparent;
+}
+
+.scene-access {
+  top: 14px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.78);
+  color: var(--ink);
+}
+
+.scene-access svg {
+  width: 12px;
+  height: 12px;
+}
+
+.window-scene--shape-portfolio .scene-title {
+  width: 42%;
+  height: 19%;
+}
+
+.window-scene--shape-portfolio .scene-card {
+  height: 38%;
+}
+
+.window-scene--shape-product .scene-title {
+  width: 48%;
+}
+
+.window-scene--shape-product .scene-card--one {
+  width: 58%;
+}
+
+.window-scene--shape-product .scene-card--two {
+  width: 26%;
+}
+
+.window-scene--shape-event .scene-action {
+  background: var(--coral) !important;
+}
+
+.window-scene--shape-community .scene-card {
+  border-radius: 999px;
+}
+
+.window-scene--shape-shop .scene-card {
+  background: currentColor !important;
+  opacity: 0.12;
+}
+
 .window-scene--playful {
   background: var(--yellow);
 }
@@ -1425,6 +1588,7 @@ h1 em {
   font-weight: 650;
   letter-spacing: -0.055em;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .ticket-copy p {
@@ -1432,6 +1596,7 @@ h1 em {
   color: #59655d;
   font-size: 0.82rem;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .ticket-decisions {
@@ -1451,9 +1616,57 @@ h1 em {
 }
 
 .ticket-decisions dd {
+  min-width: 0;
   margin: 0;
   font-weight: 700;
+  overflow-wrap: anywhere;
   text-align: right;
+}
+
+.ticket-decisions .ticket-decision--list {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.ticket-decision--list dd {
+  text-align: left;
+}
+
+.ticket-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket-tag {
+  display: inline-flex;
+  min-width: 0;
+  padding: 5px 7px;
+  border: 1px solid rgb(36 84 255 / 0.28);
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: #183cba;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.ticket-tag--pattern {
+  border-color: rgb(255 101 71 / 0.32);
+  background: #ffe7e1;
+  color: #91301e;
+}
+
+.ticket-tag--open {
+  border-color: var(--line);
+  background: var(--paper);
+  color: #69756d;
 }
 
 .ticket-note {
@@ -1489,6 +1702,10 @@ h1 em {
   .recipe-ticket {
     position: relative;
     top: auto;
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
     max-width: 620px;
     margin: 0 auto;
   }
@@ -1572,6 +1789,25 @@ h1 em {
 
   .finish-heading {
     flex-direction: column;
+  }
+
+  .ticket-index {
+    position: static;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .ticket-copy h2 {
+    max-width: none;
+  }
+
+  .ticket-decisions .ticket-decision {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .ticket-decisions dd {
+    text-align: left;
   }
 }
 

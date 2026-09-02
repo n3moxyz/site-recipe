@@ -1,5 +1,7 @@
 'use client';
 
+/* oxlint-disable jsx-a11y/no-noninteractive-tabindex */
+
 import { useMemo, useState } from 'react';
 import {
   ArrowDown,
@@ -244,6 +246,9 @@ export default function Home() {
     [access],
   );
 
+  const AccessPreviewIcon =
+    accessOptions.find((item) => item.id === access)?.Icon ?? KeyRound;
+
   const selectedSectionLabels = pageSections
     .filter((item) => sections.includes(item.id))
     .map((item) => item.label);
@@ -304,6 +309,11 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
     setReviewedSteps((current) => Math.max(current, step));
   }
 
+  function markBriefChanged(step: number) {
+    reviewStep(step);
+    setCopyState('idle');
+  }
+
   function goToStep(id: string, step: number) {
     reviewStep(step);
     document
@@ -317,7 +327,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
         ? current.filter((item) => item !== section)
         : [...current, section],
     );
-    reviewStep(3);
+    markBriefChanged(3);
   }
 
   function togglePattern(pattern: UiPattern) {
@@ -326,7 +336,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
         ? current.filter((item) => item !== pattern)
         : [...current, pattern],
     );
-    reviewStep(4);
+    markBriefChanged(4);
   }
 
   async function copyPrompt() {
@@ -356,7 +366,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
   function applyStarter(index: number) {
     setProjectName(starterIdeas[index].name);
     setIdea(starterIdeas[index].idea);
-    reviewStep(1);
+    markBriefChanged(1);
   }
 
   return (
@@ -418,7 +428,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                 value={projectName}
                 onChange={(event) => {
                   setProjectName(event.target.value);
-                  reviewStep(1);
+                  markBriefChanged(1);
                 }}
                 className="recipe-input"
               />
@@ -430,7 +440,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                 value={idea}
                 onChange={(event) => {
                   setIdea(event.target.value);
-                  reviewStep(1);
+                  markBriefChanged(1);
                 }}
                 className="recipe-textarea"
               />
@@ -477,7 +487,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                     aria-label={`Select ${item.label} visual direction`}
                     onClick={() => {
                       setDirection(item.id);
-                      reviewStep(2);
+                      markBriefChanged(2);
                     }}
                   >
                     <span
@@ -548,7 +558,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                     aria-pressed={selected}
                     onClick={() => {
                       setSiteShape(shape.id);
-                      reviewStep(3);
+                      markBriefChanged(3);
                     }}
                   >
                     <span className="shape-card__title">
@@ -701,7 +711,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                     aria-label={`Use ${level.label} motion`}
                     onClick={() => {
                       setMotion(level.id);
-                      reviewStep(5);
+                      markBriefChanged(5);
                     }}
                   >
                     <span
@@ -764,7 +774,7 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                     aria-pressed={selected}
                     onClick={() => {
                       setAccess(id);
-                      reviewStep(6);
+                      markBriefChanged(6);
                     }}
                   >
                     <span className="access-icon" aria-hidden="true">
@@ -877,9 +887,16 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
         </section>
 
         <aside className="recipe-rail" aria-label="Live site recipe">
-          <div className="recipe-ticket">
+          {/* The independently scrollable desktop brief must be keyboard-focusable. */}
+          <section
+            className="recipe-ticket"
+            aria-labelledby="live-brief-title"
+            tabIndex={0}
+          >
             <div className="ticket-topline">
-              <span className="utility-label">Live build brief</span>
+              <span id="live-brief-title" className="utility-label">
+                Live build brief
+              </span>
               <span className="live-dot">Updating</span>
             </div>
             <div className="ticket-window" aria-hidden="true">
@@ -889,13 +906,26 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
                 <i />
               </span>
               <span
-                className={`window-scene window-scene--${direction ?? 'open'}`}
+                className={`window-scene window-scene--${direction ?? 'open'} window-scene--shape-${siteShape ?? 'open'} window-scene--motion-${motion ?? 'open'}`}
               >
                 <i className="scene-label" />
                 <i className="scene-title" />
                 <i className="scene-action" />
                 <i className="scene-card scene-card--one" />
                 <i className="scene-card scene-card--two" />
+                <span className="scene-sections">
+                  {sections.slice(0, 6).map((section) => (
+                    <b key={section} />
+                  ))}
+                </span>
+                <span className="scene-patterns">
+                  {patterns.slice(0, 6).map((pattern) => (
+                    <b key={pattern} />
+                  ))}
+                </span>
+                <span className="scene-access">
+                  <AccessPreviewIcon />
+                </span>
               </span>
             </div>
             <div className="ticket-copy">
@@ -904,38 +934,77 @@ Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus st
               <p>{idea || 'Your one-sentence idea will appear here.'}</p>
             </div>
             <dl className="ticket-decisions">
-              <div>
+              <div className="ticket-decision">
                 <dt>Direction</dt>
-                <dd>{directionLabel}</dd>
+                <dd>{direction ? directionLabel : 'Not chosen'}</dd>
               </div>
-              <div>
+              <div className="ticket-decision">
                 <dt>Page shape</dt>
-                <dd>{shapeLabel}</dd>
+                <dd>{siteShape ? shapeLabel : 'Not chosen'}</dd>
               </div>
-              <div>
-                <dt>Sections</dt>
-                <dd>{sections.length || 'Open'}</dd>
+              <div className="ticket-decision ticket-decision--list">
+                <dt>Page sections</dt>
+                <dd>
+                  <ul className="ticket-tags">
+                    {selectedSectionLabels.length ? (
+                      selectedSectionLabels.map((label) => (
+                        <li key={label} className="ticket-tag">
+                          {label}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="ticket-tag ticket-tag--open">
+                        Not chosen
+                      </li>
+                    )}
+                  </ul>
+                </dd>
               </div>
-              <div>
+              <div className="ticket-decision ticket-decision--list">
                 <dt>UI ingredients</dt>
-                <dd>{patterns.length || 'Open'}</dd>
+                <dd>
+                  <ul className="ticket-tags">
+                    {selectedPatternLabels.length ? (
+                      selectedPatternLabels.map((label) => (
+                        <li
+                          key={label}
+                          className="ticket-tag ticket-tag--pattern"
+                        >
+                          {label}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="ticket-tag ticket-tag--open">
+                        Not chosen
+                      </li>
+                    )}
+                  </ul>
+                </dd>
               </div>
-              <div>
+              <div className="ticket-decision">
                 <dt>Motion</dt>
-                <dd>{motionLabel}</dd>
+                <dd>{motion ? motionLabel : 'Not chosen'}</dd>
               </div>
-              <div>
+              <div className="ticket-decision">
                 <dt>Access</dt>
-                <dd>{accessLabel}</dd>
+                <dd>{access ? accessLabel : 'Not chosen'}</dd>
               </div>
             </dl>
+            <output className="sr-only" aria-live="polite">
+              Brief updated. {direction ? directionLabel : 'No'} direction,{' '}
+              {siteShape ? shapeLabel : 'no page shape'},{' '}
+              {selectedSectionLabels.length} page sections,{' '}
+              {selectedPatternLabels.length} UI ingredients,{' '}
+              {motion ? motionLabel : 'no'} motion, and{' '}
+              {access ? accessLabel : 'no access choice'}.
+            </output>
             <p className="ticket-note">
               Your choices become a clean, editable prompt at the finish.
             </p>
             <a className="ticket-link" href="#access">
               Review the complete brief <ArrowRight aria-hidden="true" />
             </a>
-          </div>
+          </section>
         </aside>
       </div>
     </main>
