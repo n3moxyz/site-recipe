@@ -17,10 +17,39 @@ const mono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const siteUrl = new URL('https://site-recipe.n3mooo.chatgpt.site');
+const title = 'Site Recipe — Make a site plan worth building';
+const description =
+  'Turn a loose website idea into a clear, taste-aware brief for ChatGPT Sites.';
+
 export const metadata: Metadata = {
-  title: 'Site Recipe — Make a site plan worth building',
-  description:
-    'Turn a loose website idea into a clear, taste-aware brief for ChatGPT Sites.',
+  metadataBase: siteUrl,
+  title,
+  description,
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    siteName: 'Site Recipe',
+    title,
+    description,
+    images: [
+      {
+        url: new URL('/og.png', siteUrl),
+        width: 1200,
+        height: 630,
+        alt: 'A colorful Site Recipe card with the message Turn a loose idea into a site worth building.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [new URL('/og.png', siteUrl)],
+  },
 };
 
 export default function RootLayout({
