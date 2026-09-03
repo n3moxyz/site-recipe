@@ -27,7 +27,7 @@ The MVP is a single Vinext/React route. Curated options live locally as typed da
 ## Technical context
 
 - Runtime: Vinext on React 19.
-- Styling: plain CSS (no Tailwind, no shadcn). Shared tokens live in `app/globals.css`.
+- Styling: plain CSS (no Tailwind, no shadcn). `app/globals.css` is the entry that imports the ordered partials under `app/styles/`; shared tokens live in `app/styles/01-tokens-reset.css`.
 - Components: hand-written primitives in `components/recipe/`; pure recipe logic lives in `lib/recipe/`.
 - Hosting: ChatGPT Sites via `.openai/hosting.json`.
 - Persistence/authentication: none in the MVP; access methods are planning choices only.

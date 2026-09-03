@@ -1,0 +1,509 @@
+.recipe-rail {
+  position: relative;
+  min-width: 0;
+  padding: 48px clamp(22px, 3.2vw, 52px);
+  background: var(--blue-soft);
+}
+
+.recipe-ticket {
+  position: sticky;
+  top: 116px;
+  max-height: calc(100vh - 148px);
+  max-height: calc(100dvh - 148px);
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--ink) transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  padding: 20px;
+  border: 1px solid var(--ink);
+  border-radius: 14px;
+  background: white;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.recipe-ticket::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recipe-ticket::-webkit-scrollbar-thumb {
+  border: 2px solid white;
+  border-radius: 999px;
+  background: var(--ink);
+}
+
+.ticket-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #4b5950;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.live-dot::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #18a45b;
+  content: '';
+  box-shadow: 0 0 0 3px rgb(24 164 91 / 0.14);
+}
+
+.live-dot.is-updating {
+  animation: brief-pulse 900ms ease-in-out;
+}
+
+.ticket-window {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.window-bar {
+  display: flex;
+  height: 24px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--ink);
+  background: white;
+}
+
+.window-bar i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.window-scene {
+  position: relative;
+  display: block;
+  height: calc(100% - 24px);
+  padding: 18px;
+  transition:
+    background 240ms ease,
+    color 240ms ease;
+}
+
+.window-scene i {
+  position: absolute;
+  display: block;
+  background: currentColor;
+  transition:
+    transform 240ms ease,
+    border-radius 240ms ease;
+}
+
+.scene-label {
+  top: 18px;
+  left: 18px;
+  width: 28%;
+  height: 4px;
+}
+
+.scene-title {
+  top: 35px;
+  left: 18px;
+  width: 67%;
+  height: 26%;
+}
+
+.scene-action {
+  top: 44%;
+  left: 18px;
+  width: 26%;
+  height: 10%;
+  background: var(--blue) !important;
+}
+
+.scene-card {
+  bottom: 16px;
+  width: calc(50% - 22px);
+  height: 27%;
+  border: 1px solid currentColor;
+  background: transparent !important;
+}
+
+.scene-card--one {
+  left: 18px;
+}
+
+.scene-card--two {
+  right: 18px;
+}
+
+.scene-sections,
+.scene-patterns,
+.scene-access {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+}
+
+.scene-sections {
+  bottom: 24px;
+  left: 26px;
+  width: calc(50% - 38px);
+  height: 16px;
+  align-items: end;
+  gap: 3px;
+}
+
+.scene-sections b {
+  display: block;
+  min-width: 2px;
+  height: 55%;
+  flex: 1;
+  border-radius: 1px 1px 0 0;
+  background: currentColor;
+  opacity: 0.72;
+}
+
+.scene-sections b:nth-child(2n) {
+  height: 100%;
+}
+
+.scene-sections b:nth-child(3n) {
+  height: 74%;
+}
+
+.scene-patterns {
+  right: 25px;
+  bottom: 26px;
+  width: calc(50% - 38px);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.scene-patterns b {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: transparent;
+}
+
+.scene-access {
+  top: 14px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.78);
+  color: var(--ink);
+}
+
+.scene-access svg {
+  width: 12px;
+  height: 12px;
+}
+
+.window-scene--shape-portfolio .scene-title {
+  width: 42%;
+  height: 19%;
+}
+
+.window-scene--shape-portfolio .scene-card {
+  height: 38%;
+}
+
+.window-scene--shape-product .scene-title {
+  width: 48%;
+}
+
+.window-scene--shape-product .scene-card--one {
+  width: 58%;
+}
+
+.window-scene--shape-product .scene-card--two {
+  width: 26%;
+}
+
+.window-scene--shape-event .scene-action {
+  background: var(--coral) !important;
+}
+
+.window-scene--shape-community .scene-card {
+  border-radius: 999px;
+}
+
+.window-scene--shape-shop .scene-card {
+  background: currentColor !important;
+  opacity: 0.12;
+}
+
+.window-scene--playful {
+  background: var(--yellow);
+}
+
+.window-scene--playful .scene-title {
+  border-radius: 14px 3px 14px 3px;
+  transform: rotate(-2deg);
+}
+
+.window-scene--playful .scene-card {
+  border-radius: 999px;
+}
+
+.window-scene--precise {
+  background:
+    linear-gradient(to right, rgb(36 84 255 / 0.12) 1px, transparent 1px),
+    #eef2ff;
+  background-size: 14px 14px;
+}
+
+.window-scene--cinematic {
+  background: var(--ink);
+  color: white;
+}
+
+.window-scene--cinematic .scene-title {
+  transform: scaleX(0.75);
+  transform-origin: left;
+}
+
+.ticket-copy {
+  position: relative;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ticket-index {
+  position: absolute;
+  top: 22px;
+  right: 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+}
+
+.ticket-copy h2 {
+  max-width: 85%;
+  margin: 0 0 8px;
+  font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.ticket-copy p {
+  margin: 0;
+  color: #59655d;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.ticket-decisions {
+  margin: 0;
+}
+
+.ticket-decisions div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.76rem;
+}
+
+.ticket-decisions dt {
+  color: #69756d;
+}
+
+.ticket-decisions dd {
+  min-width: 0;
+  margin: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.ticket-decisions .ticket-decision--list {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.ticket-decision--list dd {
+  text-align: left;
+}
+
+.ticket-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket-tag {
+  display: inline-flex;
+  min-width: 0;
+  padding: 5px 7px;
+  border: 1px solid rgb(36 84 255 / 0.28);
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: #183cba;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.ticket-tag--pattern {
+  border-color: rgb(255 101 71 / 0.32);
+  background: #ffe7e1;
+  color: #91301e;
+}
+
+.ticket-tag--open {
+  border-color: var(--line);
+  background: var(--paper);
+  color: #69756d;
+}
+
+.ticket-note {
+  margin: 16px 0 0;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--mint);
+  font-size: 0.73rem;
+  line-height: 1.4;
+}
+
+.brief-bar {
+  display: none;
+}
+
+.brief-bar__summary {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: inherit;
+  text-align: left;
+}
+
+.brief-bar__name {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brief-bar__meta {
+  flex: 0 0 auto;
+  color: #5f6c63;
+}
+
+.brief-bar__open,
+.brief-bar__summary > :last-child {
+  flex: 0 0 auto;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.brief-sheet {
+  /*
+   * The UA stylesheet gives `dialog:modal` its own `max-width` of roughly
+   * `calc(100% - 38px)`; without this override the auto side margins centre the
+   * shortfall and the bottom sheet never reaches the screen edges.
+   */
+  width: min(100%, 640px);
+  max-width: 100%;
+  max-height: 88dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin: auto auto 0;
+
+  /*
+   * The sheet sits flush against the bottom of the screen, so its last row —
+   * the "Review the complete brief" link — would otherwise land inside the
+   * home-indicator strip. Reserve the inset the way `.brief-bar` does.
+   */
+  padding: 0 0 env(safe-area-inset-bottom);
+  border: 1px solid var(--ink);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: white;
+}
+
+.brief-sheet::backdrop {
+  background: rgb(23 34 27 / 0.45);
+}
+
+/*
+ * `showModal()` makes the page inert but does not stop it scrolling, so lock
+ * the document while the sheet is open. `overscroll-behavior` above keeps the
+ * sheet's own scroll from chaining into the page behind it.
+ */
+body:has(dialog.brief-sheet[open]) {
+  overflow: hidden;
+}
+
+/*
+ * Deliberately left in flow rather than pinned: the sheet itself is the scroll
+ * container, so a sticky or absolute 44px opaque circle rides over whichever
+ * ticket row sits at that offset — starting with the "Live" chip, which shares
+ * this corner. Escape and a backdrop tap still close the sheet at any depth.
+ */
+.brief-sheet__close {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  margin: 12px 12px 0 auto;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: white;
+  color: inherit;
+}
+
+.brief-sheet__close svg {
+  width: 18px;
+}
+
+.brief-sheet .recipe-ticket {
+  position: static;
+  max-height: none;
+  border: 0;
+  box-shadow: none;
+}
+
+@keyframes brief-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brief-sheet[open] {
+    animation: brief-sheet-in 240ms ease-out;
+  }
+}

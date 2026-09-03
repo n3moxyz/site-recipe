@@ -26,7 +26,7 @@ Use Node.js 22.13 or newer. No environment variables are required for the MVP.
 - `app/page.tsx` is a server component that renders `<RecipeBuilder />`.
 - `components/recipe/recipe-builder.tsx` owns the single-page guided flow, composed from the other `components/recipe/*` pieces; `components/recipe/use-recipe.ts` owns client-side recipe state, URL-hash sync, and the live-brief pulse.
 - `lib/recipe/` owns the pure, framework-free recipe logic: catalog data and types, starters, shape defaults and mismatch hints, progress calculation, deterministic prompt building, and URL-hash encode/decode. It has its own `*.test.ts` vitest suite.
-- `app/globals.css` owns shared design tokens, responsive behavior, and motion fallbacks — plain CSS, no Tailwind or shadcn.
+- `app/globals.css` is the stylesheet entry point: it declares the `@layer reset, controls;` order and then imports the ordered partials in `app/styles/`, which own shared design tokens, responsive behavior, and motion fallbacks — plain CSS, no Tailwind or shadcn. Edit the partials; Vite inlines the imports at build time.
 - `app/layout.tsx` owns document metadata and fonts.
 - `.openai/hosting.json` contains ChatGPT Sites hosting declarations.
 

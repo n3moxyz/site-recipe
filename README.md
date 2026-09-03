@@ -27,7 +27,7 @@ npm test
 
 ## Stack
 
-- Styling is plain CSS with shared design tokens in `app/globals.css`. There is no Tailwind and no shadcn in the build.
+- Styling is plain CSS. `app/globals.css` is the entry point that imports the ordered partials in `app/styles/`; shared design tokens live in `app/styles/01-tokens-reset.css`. There is no Tailwind and no shadcn in the build.
 - Pure recipe logic — catalog, starters, shape defaults, progress, prompt building, URL state — lives in `lib/recipe/` and is covered by a vitest suite (`npm test`). The interface lives in `components/recipe/`.
 - Each page type ships a starter set of sections and UI patterns, and a short list of curated hints flags combinations that usually miss, like a command menu on an event page.
 - The generated build prompt is editable before you copy it, and "Regenerate from choices" restores the generated version.

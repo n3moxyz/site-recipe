@@ -1,0 +1,350 @@
+.direction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.direction-card {
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 12px;
+  background: white;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.direction-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 rgb(23 34 27 / 0.16);
+}
+
+.direction-card[aria-pressed='true'] {
+  box-shadow: 6px 6px 0 var(--blue);
+}
+
+.direction-preview {
+  display: flex;
+  min-height: 190px;
+  padding: 24px;
+  flex-direction: column;
+  border-bottom: 1px solid var(--ink);
+}
+
+.preview-kicker {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.preview-title {
+  max-width: 250px;
+  margin-top: auto;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  font-weight: 680;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.preview-rule {
+  height: 1px;
+  margin: 14px 0;
+  background: currentColor;
+}
+
+.preview-blocks {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.6fr;
+  gap: 5px;
+}
+
+.preview-blocks i {
+  height: 12px;
+  border: 1px solid currentColor;
+}
+
+.preview-editorial {
+  background: #e9e6dd;
+}
+
+.preview-playful {
+  background: var(--yellow);
+  color: #2b1b18;
+}
+
+.preview-playful .preview-title {
+  transform: rotate(-2deg);
+}
+
+.preview-playful .preview-blocks i {
+  border-radius: 999px;
+  background: var(--coral);
+}
+
+.preview-precise {
+  background:
+    linear-gradient(to right, rgb(36 84 255 / 0.12) 1px, transparent 1px),
+    var(--blue-soft);
+  background-size: 18px 18px;
+}
+
+.preview-precise .preview-title {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.preview-cinematic {
+  background: #17221b;
+  color: white;
+}
+
+.preview-cinematic .preview-title {
+  font-weight: 480;
+}
+
+.direction-card__copy {
+  display: flex;
+  min-height: 104px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+}
+
+.direction-card__copy strong,
+.direction-card__copy small {
+  display: block;
+}
+
+.direction-card__copy strong {
+  margin-bottom: 5px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: -0.025em;
+}
+
+.direction-card__copy small {
+  max-width: 280px;
+  color: #657168;
+  font-size: 0.79rem;
+  line-height: 1.4;
+}
+
+.select-indicator {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+}
+
+[aria-pressed='true'] .select-indicator {
+  background: var(--blue);
+  color: white;
+}
+
+.select-indicator svg {
+  width: 14px;
+}
+
+.continue-button {
+  min-height: 48px;
+  margin-top: 24px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--ink);
+  box-shadow: 4px 4px 0 var(--coral);
+  font-weight: 700;
+}
+
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.shape-card {
+  min-height: 132px;
+  padding: 16px;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.75);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.shape-card:hover {
+  transform: translateY(-2px);
+}
+
+.shape-card[aria-pressed='true'] {
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.shape-card__title,
+.pattern-card__topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.shape-card strong {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.shape-card small {
+  display: block;
+  margin-top: 20px;
+  color: #5d6860;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.shape-card[aria-pressed='true'] small {
+  color: #4b4030;
+}
+
+/*
+ * Two children normally (title block, "N selected" counter) but three while the
+ * shape's starter set is unapplied. A three-item `space-between` row would drag
+ * the counter into the middle, so the optional pill spans its own row instead
+ * and the counter keeps the trailing column either way.
+ */
+.subsection-heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 12px 16px;
+  margin: 54px 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.subsection-heading .starter-set-button {
+  grid-column: 1 / -1;
+  justify-self: end;
+}
+
+.subsection-heading h3,
+.finish-heading h3 {
+  margin: 3px 0 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.subsection-heading > span {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.section-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  background: white;
+}
+
+.section-choice {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  min-height: 86px;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.section-choice:nth-child(2n) {
+  border-right: 0;
+}
+
+.section-choice:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.section-choice:hover {
+  background: #f7f8f4;
+}
+
+.section-choice[aria-pressed='true'] {
+  background: var(--blue-soft);
+}
+
+.section-check {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  background: white;
+}
+
+[aria-pressed='true'] .section-check {
+  background: var(--blue);
+  color: white;
+}
+
+.section-check svg {
+  width: 14px;
+}
+
+.section-choice strong,
+.section-choice small {
+  display: block;
+}
+
+.section-choice strong {
+  margin-bottom: 3px;
+  font-size: 0.88rem;
+}
+
+.section-choice small {
+  color: #667269;
+  font-size: 0.72rem;
+}
+
+.choice-hints {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.choice-hint {
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 3px solid var(--coral);
+  border-radius: 0 8px 8px 0;
+  background: #fff6f2;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
