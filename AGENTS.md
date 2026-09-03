@@ -19,13 +19,15 @@ Use Node.js 22.13 or newer. No environment variables are required for the MVP.
 - `npm run build` — create the deployable build.
 - `npm run lint` — run oxlint.
 - `npm run format` — run oxfmt.
+- `npm test` — run the `lib/recipe/*.test.ts` vitest suite.
 
 ## Architecture
 
-- `app/page.tsx` owns the single-page guided flow and client-side recipe state.
-- `app/globals.css` owns shared design tokens, responsive behavior, and motion fallbacks.
+- `app/page.tsx` is a server component that renders `<RecipeBuilder />`.
+- `components/recipe/recipe-builder.tsx` owns the single-page guided flow, composed from the other `components/recipe/*` pieces; `components/recipe/use-recipe.ts` owns client-side recipe state, URL-hash sync, and the live-brief pulse.
+- `lib/recipe/` owns the pure, framework-free recipe logic: catalog data and types, starters, shape defaults and mismatch hints, progress calculation, deterministic prompt building, and URL-hash encode/decode. It has its own `*.test.ts` vitest suite.
+- `app/globals.css` owns shared design tokens, responsive behavior, and motion fallbacks — plain CSS, no Tailwind or shadcn.
 - `app/layout.tsx` owns document metadata and fonts.
-- `components/ui/` contains generated shadcn primitives; compose these instead of recreating equivalent controls.
 - `.openai/hosting.json` contains ChatGPT Sites hosting declarations.
 
 ## Working rules

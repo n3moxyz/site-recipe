@@ -1,37 +1,3 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-display);
-  --font-mono: var(--font-utility);
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-}
-
 :root {
   --background: #f4f7f2;
   --foreground: #17221b;
@@ -59,6 +25,274 @@
   --mint: #d9f3e2;
   --yellow: #ffe76a;
   --line: #cbd3cc;
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-mono: var(--font-utility);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/*
+ * Reset (ported from Tailwind preflight) and the base styles the deleted
+ * UI-kit Button/Input/Textarea components used to supply.
+ *
+ * Tailwind shipped preflight in `@layer base` and every component utility in
+ * `@layer utilities`, so all the hand-written rules in this file — which are
+ * unlayered — already won against both, whatever their specificity. Keeping
+ * the port inside cascade layers reproduces that ordering exactly: nothing
+ * below this point can be overridden by anything in `reset` or `controls`.
+ */
+@layer reset, controls;
+
+@layer reset {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+
+  html {
+    tab-size: 4;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  b,
+  strong {
+    font-weight: bolder;
+  }
+
+  small {
+    font-size: 80%;
+  }
+
+  pre,
+  code,
+  kbd {
+    font-family: var(--font-mono), monospace;
+    font-size: 1em;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  /*
+   * `max-width`/`height: auto` stay scoped to img and video, exactly as
+   * Tailwind's preflight scopes them. Lucide icons render as <svg> with
+   * width="24" height="24" attributes and several rules below set only
+   * `width`, so an auto height would resize every icon on the page.
+   */
+  img,
+  svg,
+  video {
+    display: block;
+    vertical-align: middle;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+
+  button,
+  [role='button'] {
+    cursor: pointer;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  /* `opacity: 1` cancels Firefox's UA `::placeholder { opacity: 0.54 }`. */
+  ::placeholder {
+    opacity: 1;
+    color: color-mix(in srgb, currentcolor 50%, transparent);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  dialog {
+    color: inherit;
+  }
+}
+
+@layer controls {
+  /* UI-kit Button, default size — the shared box. */
+  .continue-button,
+  .copy-button,
+  .regenerate-button,
+  .share-button,
+  .open-sites-link,
+  .reset-button {
+    display: inline-flex;
+    height: 2rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding-inline: 0.625rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background-clip: padding-box;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: calc(1.25 / 0.875);
+    white-space: nowrap;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+  }
+
+  .continue-button svg,
+  .copy-button svg,
+  .regenerate-button svg,
+  .share-button svg,
+  .open-sites-link svg,
+  .reset-button svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  .continue-button:has([data-icon='inline-end']),
+  .copy-button:has([data-icon='inline-end']),
+  .regenerate-button:has([data-icon='inline-end']),
+  .share-button:has([data-icon='inline-end']),
+  .open-sites-link:has([data-icon='inline-end']),
+  .reset-button:has([data-icon='inline-end']) {
+    padding-right: 0.5rem;
+  }
+
+  .continue-button:active,
+  .copy-button:active,
+  .regenerate-button:active,
+  .share-button:active,
+  .open-sites-link:active,
+  .reset-button:active {
+    translate: 0 1px;
+  }
+
+  .continue-button:disabled,
+  .copy-button:disabled,
+  .regenerate-button:disabled,
+  .share-button:disabled,
+  .reset-button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* Default variant. */
+  .continue-button,
+  .copy-button,
+  .open-sites-link {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* Ghost variant. */
+  .reset-button,
+  .regenerate-button,
+  .share-button {
+    background: transparent;
+  }
+
+  .reset-button:hover,
+  .regenerate-button:hover,
+  .share-button:hover {
+    background: var(--muted);
+    color: var(--foreground);
+  }
+
+  /* UI-kit Input / Textarea. */
+  .recipe-input,
+  .recipe-textarea,
+  .prompt-editor {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--input);
+    border-radius: var(--radius-lg);
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition:
+      color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .recipe-input {
+    height: 2rem;
+    padding: 0.25rem 0.625rem;
+  }
+
+  .recipe-textarea,
+  .prompt-editor {
+    display: flex;
+    min-height: 4rem;
+    padding: 0.5rem 0.625rem;
+  }
+
+  .recipe-textarea {
+    field-sizing: content;
+  }
+
+  .recipe-input::placeholder,
+  .recipe-textarea::placeholder,
+  .prompt-editor::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .recipe-input:focus-visible,
+  .recipe-textarea:focus-visible,
+  .prompt-editor:focus-visible {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+
+  @media (width >= 48rem) {
+    .recipe-input,
+    .recipe-textarea,
+    .prompt-editor {
+      font-size: 0.875rem;
+      line-height: calc(1.25 / 0.875);
+    }
+  }
 }
 
 * {
@@ -68,9 +302,22 @@
 
 html {
   scroll-behavior: smooth;
+
+  /*
+   * Anchor jumps and focus-driven scrolling otherwise land flush with the
+   * viewport edge, underneath the 72px sticky header (WCAG 2.2 SC 2.4.11).
+   */
+  scroll-padding-top: 88px;
 }
 
 body {
+  /*
+   * next/font puts `--font-utility` on the class it applies to <body>, never on
+   * <html>. Resolving it at `:root` therefore yields the guaranteed-invalid
+   * value, which inherits down and kills every `var(--font-mono)` font-family.
+   * Re-declare the token here, where `--font-utility` actually exists.
+   */
+  --font-mono: var(--font-utility);
   min-width: 320px;
   margin: 0;
   background:
@@ -164,7 +411,8 @@ textarea:focus-visible,
 }
 
 .header-progress__label,
-.utility-label {
+.utility-label,
+.brief-bar__meta {
   font-family: var(--font-mono), monospace;
   font-size: 0.68rem;
   font-weight: 650;
@@ -352,7 +600,8 @@ h1 em {
   margin-right: 4px;
 }
 
-.starter-chip {
+.starter-chip,
+.starter-set-button {
   min-height: 36px;
   padding: 6px 12px;
   border: 1px solid var(--line);
@@ -367,7 +616,8 @@ h1 em {
     transform 160ms ease;
 }
 
-.starter-chip:hover {
+.starter-chip:hover,
+.starter-set-button:hover {
   border-color: var(--ink);
   transform: translateY(-2px);
 }
@@ -596,14 +846,25 @@ h1 em {
   color: #4b4030;
 }
 
+/*
+ * Two children normally (title block, "N selected" counter) but three while the
+ * shape's starter set is unapplied. A three-item `space-between` row would drag
+ * the counter into the middle, so the optional pill spans its own row instead
+ * and the counter keeps the trailing column either way.
+ */
 .subsection-heading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 12px 16px;
   margin: 54px 0 18px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--ink);
+}
+
+.subsection-heading .starter-set-button {
+  grid-column: 1 / -1;
+  justify-self: end;
 }
 
 .subsection-heading h3,
@@ -694,6 +955,22 @@ h1 em {
 .section-choice small {
   color: #667269;
   font-size: 0.72rem;
+}
+
+.choice-hints {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.choice-hint {
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 3px solid var(--coral);
+  border-radius: 0 8px 8px 0;
+  background: #fff6f2;
+  font-size: 0.85rem;
+  line-height: 1.45;
 }
 
 .pattern-grid {
@@ -849,6 +1126,30 @@ h1 em {
 
 .pattern-art--command i:first-child {
   background: var(--ink);
+}
+
+.pattern-art--plain {
+  align-content: center;
+  grid-template-rows: repeat(3, 10px);
+  padding-inline: 34px;
+  background: #f0eee8;
+}
+
+.pattern-art--plain i {
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+.pattern-art--plain i:first-child {
+  width: 40%;
+}
+
+.pattern-art--plain i:nth-child(2) {
+  width: 60%;
+}
+
+.pattern-art--plain i:last-child {
+  width: 50%;
 }
 
 .pattern-card__body {
@@ -1129,24 +1430,45 @@ h1 em {
   background: var(--yellow);
 }
 
-.prompt-preview {
-  max-height: 360px;
+/*
+ * The old `.prompt-preview` was a <pre>, so its 0.35 border only had to be
+ * decorative. As a <textarea> it is a real control, and WCAG 1.4.11 wants its
+ * boundary at 3:1 — the field fill is only 1.55:1 against the panel, so the
+ * border is the whole affordance. 0.45 over #0e1711 measures 4.0:1 on --ink.
+ */
+.prompt-editor {
+  width: 100%;
+  min-height: 320px;
   overflow: auto;
   margin: 0;
   padding: 18px;
-  border: 1px solid rgb(255 255 255 / 0.35);
+  border: 1px solid rgb(255 255 255 / 0.45);
   border-radius: 8px;
   background: #0e1711;
   color: #e7eee9;
   font-family: var(--font-mono), monospace;
   font-size: 0.72rem;
-  line-height: 1.65;
+  line-height: 1.5;
   white-space: pre-wrap;
+  resize: vertical;
+}
+
+/*
+ * The preview became an editable <textarea>, and iOS Safari zooms the whole
+ * viewport whenever a focused form control computes under 16px — which the
+ * terminal-sized 0.72rem above does. The `controls` layer already has a 1rem
+ * fallback, but this rule is unlayered and beats it, so restate it here.
+ */
+@media (width < 48rem) {
+  .prompt-editor {
+    font-size: 1rem;
+  }
 }
 
 .finish-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin-top: 18px;
 }
@@ -1160,6 +1482,18 @@ h1 em {
   font-weight: 700;
 }
 
+/*
+ * Soft-disabled: the button keeps `aria-disabled` rather than the native
+ * attribute so it stays focusable and can announce why it is blocked, which
+ * means the `controls` layer's `:disabled { opacity: .5 }` never matches.
+ * Restate the dimming here. Pointer events stay on — the click handler has to
+ * run to set that message.
+ */
+.copy-button[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.5;
+}
+
 .reset-button {
   min-height: 46px;
   padding-inline: 14px;
@@ -1168,6 +1502,42 @@ h1 em {
 
 .reset-button:hover {
   background: rgb(255 255 255 / 0.12);
+}
+
+/*
+ * The only control in this row that is an <a>, so the unlayered
+ * `button, input, textarea { font: inherit }` never reaches it and it keeps the
+ * `controls` layer's 0.875rem while every button beside it renders at 1rem.
+ * Restate both the size and the radius so the row measures the same.
+ */
+.open-sites-link {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-lg);
+  background: white;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.open-sites-link:hover {
+  background: var(--mint);
+}
+
+.regenerate-button,
+.share-button {
+  min-height: 46px;
+  padding-inline: 14px;
+  border: 1px solid var(--line);
+  color: white;
+}
+
+.regenerate-button:hover,
+.share-button:hover {
+  background: rgb(255 255 255 / 0.12);
+  color: white;
 }
 
 .copy-status {
@@ -1348,6 +1718,10 @@ h1 em {
   background: #18a45b;
   content: '';
   box-shadow: 0 0 0 3px rgb(24 164 91 / 0.14);
+}
+
+.live-dot.is-updating {
+  animation: brief-pulse 900ms ease-in-out;
 }
 
 .ticket-window {
@@ -1678,7 +2052,135 @@ h1 em {
   line-height: 1.4;
 }
 
+.brief-bar {
+  display: none;
+}
+
+.brief-bar__summary {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: inherit;
+  text-align: left;
+}
+
+.brief-bar__name {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brief-bar__meta {
+  flex: 0 0 auto;
+  color: #5f6c63;
+}
+
+.brief-bar__open,
+.brief-bar__summary > :last-child {
+  flex: 0 0 auto;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.brief-sheet {
+  /*
+   * The UA stylesheet gives `dialog:modal` its own `max-width` of roughly
+   * `calc(100% - 38px)`; without this override the auto side margins centre the
+   * shortfall and the bottom sheet never reaches the screen edges.
+   */
+  width: min(100%, 640px);
+  max-width: 100%;
+  max-height: 88dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin: auto auto 0;
+
+  /*
+   * The sheet sits flush against the bottom of the screen, so its last row —
+   * the "Review the complete brief" link — would otherwise land inside the
+   * home-indicator strip. Reserve the inset the way `.brief-bar` does.
+   */
+  padding: 0 0 env(safe-area-inset-bottom);
+  border: 1px solid var(--ink);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: white;
+}
+
+.brief-sheet::backdrop {
+  background: rgb(23 34 27 / 0.45);
+}
+
+/*
+ * `showModal()` makes the page inert but does not stop it scrolling, so lock
+ * the document while the sheet is open. `overscroll-behavior` above keeps the
+ * sheet's own scroll from chaining into the page behind it.
+ */
+body:has(dialog.brief-sheet[open]) {
+  overflow: hidden;
+}
+
+/*
+ * Deliberately left in flow rather than pinned: the sheet itself is the scroll
+ * container, so a sticky or absolute 44px opaque circle rides over whichever
+ * ticket row sits at that offset — starting with the "Live" chip, which shares
+ * this corner. Escape and a backdrop tap still close the sheet at any depth.
+ */
+.brief-sheet__close {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  margin: 12px 12px 0 auto;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: white;
+  color: inherit;
+}
+
+.brief-sheet__close svg {
+  width: 18px;
+}
+
+.brief-sheet .recipe-ticket {
+  position: static;
+  max-height: none;
+  border: 0;
+  box-shadow: none;
+}
+
+@keyframes brief-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brief-sheet[open] {
+    animation: brief-sheet-in 240ms ease-out;
+  }
+}
+
 @media (max-width: 980px) {
+  html {
+    /* Clear the fixed brief bar the same way we clear the sticky header. */
+    scroll-padding-bottom: 88px;
+  }
+
+  body {
+    /* 84px is the bar's own height; the inset is what it adds on a notch. */
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+
   .site-header {
     grid-template-columns: 1fr auto;
   }
@@ -1696,7 +2198,32 @@ h1 em {
   }
 
   .recipe-rail {
+    display: none;
+  }
+
+  .brief-bar {
+    position: fixed;
+    z-index: 40;
+    display: flex;
+    inset: auto 0 0;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--ink);
+    background: white;
+  }
+
+  /*
+   * Touch targets. `.section-choice` (86px), `.share-button` and
+   * `.regenerate-button` (46px) are deliberately left out: a `min-height`
+   * declared here would shrink them rather than grow them.
+   */
+  .starter-chip,
+  .starter-set-button,
+  .resource-footer a,
+  .ticket-link,
+  .quiet-link,
+  .brand,
+  .brief-sheet__close {
+    min-height: 44px;
   }
 
   .recipe-ticket {
@@ -1731,8 +2258,25 @@ h1 em {
     min-height: 64px;
   }
 
+  /*
+   * The label below is taken out of flow at this width, leaving the arrow icon
+   * as the only in-flow child, so the link would size to a 20px-wide target.
+   */
   .quiet-link {
-    font-size: 0;
+    min-width: 44px;
+    justify-content: center;
+  }
+
+  .quiet-link__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
 
   .quiet-link svg {

@@ -22,18 +22,30 @@ npm run dev
 npm run build
 npm run lint
 npm run format
+npm test
 ```
+
+## Stack
+
+- Styling is plain CSS with shared design tokens in `app/globals.css`. There is no Tailwind and no shadcn in the build.
+- Pure recipe logic — catalog, starters, shape defaults, progress, prompt building, URL state — lives in `lib/recipe/` and is covered by a vitest suite (`npm test`). The interface lives in `components/recipe/`.
+- Each page type ships a starter set of sections and UI patterns, and a short list of curated hints flags combinations that usually miss, like a command menu on an event page.
+- The generated build prompt is editable before you copy it, and "Regenerate from choices" restores the generated version.
+- Every choice round-trips through the URL hash, so a shared link restores the whole recipe.
+- Below 980px the sticky live brief becomes a fixed summary bar that opens the same brief in a sheet.
 
 ## Product slice
 
 The MVP helps a beginner:
 
-1. Describe an idea and audience.
-2. Choose a visual direction.
-3. Pick the page's essential sections.
-4. Pick useful UI patterns.
-5. Set a motion level.
-6. Decide whether the site is public or gated.
-7. Copy a structured prompt for ChatGPT Sites.
+1. Describe an idea.
+2. Describe who the site is for.
+3. Choose a visual direction.
+4. Pick the page's essential sections.
+5. Pick useful UI patterns.
+6. Set a motion level.
+7. Decide whether the site is public or gated.
+8. Copy a structured prompt for ChatGPT Sites.
+9. Share a link that restores every choice.
 
-Reference material includes [Name That UI](https://namethatui.com/), [shadcn/ui](https://ui.shadcn.com/), [Motion Sites](https://motionsites.ai/), and [Awwwards](https://www.awwwards.com/). We borrow vocabulary and interaction ideas, not protected assets or copied designs.
+Reference material — inspiration, not dependencies — includes [Name That UI](https://namethatui.com/), [shadcn/ui](https://ui.shadcn.com/), [Motion Sites](https://motionsites.ai/), and [Awwwards](https://www.awwwards.com/). We borrow vocabulary and interaction ideas, not protected assets or copied designs.
