@@ -28,6 +28,8 @@ const OPEN_LABEL = 'Open ChatGPT';
 const REGENERATED_STATUS = 'Brief regenerated from your choices.';
 const NOT_READY_STATUS =
   'Finish the six steps, or edit the brief yourself, before copying.';
+const EMPTY_STATUS =
+  'The brief is empty. Regenerate it from your choices, or write one, before copying.';
 /** Describes the link, so its promise and its behaviour stay in sync. */
 const SEND_HELP_ID = 'send-brief-help';
 /** Lets the copy button borrow the badge as its reason for being inert. */
@@ -93,6 +95,10 @@ type DraftState = {
   status: Status;
   draft: string;
   composeUrl: string;
+  /** Nothing to copy: the user cleared the textarea. */
+  empty: boolean;
+  /** The text is still ours and the recipe is not finished. */
+  blockedByRecipe: boolean;
   blocked: boolean;
   live: Feedback | null;
   tooLong: boolean;
@@ -101,9 +107,16 @@ type DraftState = {
 /** The editable brief and everything the panel reads off it. */
 function useDraft(prompt: string, ready: boolean): DraftState {
   // `null` means "not hand-edited", so the draft simply follows the prompt.
-  const [edit, setEdit] = useState<string | null>(null);
+  const [edit, setEditState] = useState<string | null>(null);
   const editor = useRef<HTMLTextAreaElement>(null);
   const status = useStatus();
+
+  // Feedback describes the text that was there when the action ran, so any
+  // edit retires it: a "Copied" badge must never outlive the text it copied.
+  function setEdit(next: string | null) {
+    status.clear();
+    setEditState(next);
+  }
   const [seenPrompt, setSeenPrompt] = useState(prompt);
 
   // A message describes the choices that produced it, so a new prompt retires
@@ -117,6 +130,10 @@ function useDraft(prompt: string, ready: boolean): DraftState {
 
   const draft = edit ?? prompt;
   const composeUrl = chatgptComposeUrl(draft);
+  const empty = draft.trim() === '';
+  // Copy takes the draft, and the draft is the user's to type — so an
+  // incomplete recipe only blocks copying while the text is still ours.
+  const blockedByRecipe = !ready && edit === null;
 
   return {
     edit,
@@ -125,13 +142,13 @@ function useDraft(prompt: string, ready: boolean): DraftState {
     status,
     draft,
     composeUrl,
-    // Copy takes the draft, and the draft is the user's to type — so an
-    // incomplete recipe only blocks copying while the text is still ours.
-    blocked: !ready && edit === null,
+    empty,
+    blockedByRecipe,
+    blocked: empty || blockedByRecipe,
     live: status.feedback,
     // Over its length cap `chatgptComposeUrl` drops the brief, so an edited
     // draft can silently open an empty chat. Say that instead of promising it.
-    tooLong: draft.trim() !== '' && composeUrl === CHATGPT_SITES_URL,
+    tooLong: !empty && composeUrl === CHATGPT_SITES_URL,
   };
 }
 
@@ -141,10 +158,13 @@ type ActionDeps = DraftState & {
 };
 
 async function copyPrompt(deps: ActionDeps) {
-  const { blocked, draft, editor, status } = deps;
+  const { blocked, empty, draft, editor, status } = deps;
 
   if (blocked) {
-    status.show({ text: NOT_READY_STATUS, copied: false });
+    status.show({
+      text: empty ? EMPTY_STATUS : NOT_READY_STATUS,
+      copied: false,
+    });
     return;
   }
   if (await copyText(draft)) {
@@ -194,6 +214,7 @@ type ActionsProps = {
   composeUrl: string;
   tooLong: boolean;
   blocked: boolean;
+  blockedByRecipe: boolean;
   copied: boolean;
   edited: boolean;
   onCopy: () => void;
@@ -202,7 +223,13 @@ type ActionsProps = {
   onReset: () => void;
 };
 
-type CopyProps = { blocked: boolean; copied: boolean; onCopy: () => void };
+type CopyProps = {
+  blocked: boolean;
+  copied: boolean;
+  /** The badge that explains a recipe-level block; none for an empty draft. */
+  describedBy?: string;
+  onCopy: () => void;
+};
 
 /**
  * Soft-disabled on purpose: a native `disabled` drops the button out of the
@@ -210,14 +237,14 @@ type CopyProps = { blocked: boolean; copied: boolean; onCopy: () => void };
  * can reach. It stays focusable, points at the badge for the reason, and
  * `onCopy` refuses the copy itself.
  */
-function CopyButton({ blocked, copied, onCopy }: CopyProps) {
+function CopyButton({ blocked, copied, describedBy, onCopy }: CopyProps) {
   return (
     <button
       type="button"
       className="copy-button"
       onClick={onCopy}
       aria-disabled={blocked}
-      aria-describedby={blocked ? READY_BADGE_ID : undefined}
+      aria-describedby={describedBy}
     >
       {copied ? <Check /> : <Copy />}
       {copied ? 'Copied to clipboard' : 'Copy prompt for Sites'}
@@ -251,6 +278,7 @@ function FinishActions({
   composeUrl,
   tooLong,
   blocked,
+  blockedByRecipe,
   copied,
   edited,
   onCopy,
@@ -260,7 +288,12 @@ function FinishActions({
 }: ActionsProps) {
   return (
     <div className="finish-actions">
-      <CopyButton blocked={blocked} copied={copied} onCopy={onCopy} />
+      <CopyButton
+        blocked={blocked}
+        copied={copied}
+        describedBy={blockedByRecipe ? READY_BADGE_ID : undefined}
+        onCopy={onCopy}
+      />
       <SendLink composeUrl={composeUrl} tooLong={tooLong} />
       <button type="button" className="share-button" onClick={onShare}>
         <Link2 /> Copy share link
@@ -377,6 +410,7 @@ export function FinishPanel({ prompt, ready, onReset, onFlushHash }: Props) {
         composeUrl={state.composeUrl}
         tooLong={tooLong}
         blocked={state.blocked}
+        blockedByRecipe={state.blockedByRecipe}
         copied={live?.copied ?? false}
         edited={state.edit !== null}
         onCopy={actions.copy}

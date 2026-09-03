@@ -138,7 +138,8 @@ const rules: Rule[] = [
   {
     id: 'section-landing-count',
     text: 'Landing pages work best with five sections or fewer. Cut anything that does not support the main action.',
-    when: (recipe) => recipe.shape === 'landing' && recipe.sections.length > 6,
+    // The text promises "five or fewer", so six is already over the line.
+    when: (recipe) => recipe.shape === 'landing' && recipe.sections.length > 5,
   },
   {
     id: 'motion-expressive-precise',

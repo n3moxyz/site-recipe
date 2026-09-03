@@ -235,6 +235,22 @@ describe('mismatchHints', () => {
     expect(hintIds(recipe)).toEqual(['section-landing-count']);
   });
 
+  it('flags a landing page at six sections but not five', () => {
+    const five = make({
+      shape: 'landing',
+      sections: ['hero', 'how-it-works', 'features', 'proof', 'cta'],
+      patterns: ['plain'],
+    });
+    expect(hintIds(five)).toEqual([]);
+
+    const six = make({
+      shape: 'landing',
+      sections: ['hero', 'how-it-works', 'features', 'gallery', 'proof', 'cta'],
+      patterns: ['plain'],
+    });
+    expect(hintIds(six)).toEqual(['section-landing-count']);
+  });
+
   it('flags expressive motion against a precise direction', () => {
     const recipe = make({ motion: 'expressive', direction: 'precise' });
     expect(hintIds(recipe)).toEqual(['motion-expressive-precise']);
