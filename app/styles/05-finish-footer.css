@@ -1,0 +1,284 @@
+.finish-panel {
+  margin-top: 56px;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid var(--ink);
+  border-radius: 14px;
+  background: var(--ink);
+  box-shadow: 8px 8px 0 var(--coral);
+  color: white;
+}
+
+.finish-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.finish-heading h3 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.ready-badge {
+  padding: 6px 10px;
+  border: 1px solid white;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--ink);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ready-badge--open {
+  background: var(--yellow);
+}
+
+/*
+ * The old `.prompt-preview` was a <pre>, so its 0.35 border only had to be
+ * decorative. As a <textarea> it is a real control, and WCAG 1.4.11 wants its
+ * boundary at 3:1 — the field fill is only 1.55:1 against the panel, so the
+ * border is the whole affordance. 0.45 over #0e1711 measures 4.0:1 on --ink.
+ */
+.prompt-editor {
+  width: 100%;
+  min-height: 320px;
+  overflow: auto;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 8px;
+  background: #0e1711;
+  color: #e7eee9;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  resize: vertical;
+}
+
+/*
+ * The preview became an editable <textarea>, and iOS Safari zooms the whole
+ * viewport whenever a focused form control computes under 16px — which the
+ * terminal-sized 0.72rem above does. The `controls` layer already has a 1rem
+ * fallback, but this rule is unlayered and beats it, so restate it here.
+ */
+@media (width < 48rem) {
+  .prompt-editor {
+    font-size: 1rem;
+  }
+}
+
+.finish-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.copy-button {
+  min-height: 46px;
+  padding-inline: 16px;
+  border: 1px solid white;
+  background: var(--blue);
+  box-shadow: 4px 4px 0 var(--coral);
+  font-weight: 700;
+}
+
+/*
+ * Soft-disabled: the button keeps `aria-disabled` rather than the native
+ * attribute so it stays focusable and can announce why it is blocked, which
+ * means the `controls` layer's `:disabled { opacity: .5 }` never matches.
+ * Restate the dimming here. Pointer events stay on — the click handler has to
+ * run to set that message.
+ */
+.copy-button[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.reset-button {
+  min-height: 46px;
+  padding-inline: 14px;
+  color: white;
+}
+
+.reset-button:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+/*
+ * The only control in this row that is an <a>, so the unlayered
+ * `button, input, textarea { font: inherit }` never reaches it and it keeps the
+ * `controls` layer's 0.875rem while every button beside it renders at 1rem.
+ * Restate both the size and the radius so the row measures the same.
+ */
+.open-sites-link {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-lg);
+  background: white;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.open-sites-link:hover {
+  background: var(--mint);
+}
+
+.regenerate-button,
+.share-button {
+  min-height: 46px;
+  padding-inline: 14px;
+  border: 1px solid var(--line);
+  color: white;
+}
+
+.regenerate-button:hover,
+.share-button:hover {
+  background: rgb(255 255 255 / 0.12);
+  color: white;
+}
+
+.copy-status {
+  min-height: 18px;
+  margin: 15px 0 0;
+  color: #bac4bc;
+  font-size: 0.7rem;
+}
+
+.resource-footer {
+  margin-top: 96px;
+  padding-top: 22px;
+  border-top: 1px solid var(--ink);
+}
+
+.resource-footer > p {
+  max-width: 600px;
+  margin-bottom: 22px;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+
+.resource-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.resource-footer a,
+.ticket-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: white;
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.resource-footer a:hover,
+.ticket-link:hover {
+  background: var(--ink);
+  color: white;
+}
+
+.ticket-link {
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 12px;
+  border-radius: 7px;
+}
+
+.ticket-link svg {
+  width: 14px;
+}
+
+@keyframes subtle-shift {
+  0%,
+  100% {
+    transform: translateX(-12px);
+  }
+
+  50% {
+    transform: translateX(12px);
+  }
+}
+
+@keyframes orbit-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-one {
+  to {
+    transform: translate(28px, 14px) scale(1.35);
+  }
+}
+
+@keyframes float-two {
+  to {
+    transform: translate(-18px, -24px) scale(0.75);
+  }
+}
+
+@keyframes brief-pulse {
+  50% {
+    opacity: 0.62;
+    transform: translateX(4px);
+  }
+}
+
+@keyframes brief-lift {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes ingredient-add {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene-ingredient {
+    animation: ingredient-add 180ms ease-out both;
+  }
+
+  .window-scene--motion-subtle .scene-action {
+    animation: brief-pulse 3.2s ease-in-out infinite;
+  }
+
+  .window-scene--motion-expressive .scene-action {
+    animation: brief-pulse 1.6s ease-in-out infinite;
+  }
+
+  .window-scene--motion-expressive .scene-card--one {
+    animation: brief-lift 2.2s ease-in-out infinite;
+  }
+}

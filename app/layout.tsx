@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     url: siteUrl,
@@ -37,10 +40,10 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: new URL('/og.png', siteUrl),
+        url: new URL('/og.jpg', siteUrl),
         width: 1200,
         height: 630,
-        alt: 'A colorful Site Recipe card with the message Turn a loose idea into a site worth building.',
+        alt: 'A colorful Site Recipe card with the message Turn a loose idea into a site you can actually build.',
       },
     ],
   },
@@ -48,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title,
     description,
-    images: [new URL('/og.png', siteUrl)],
+    images: [new URL('/og.jpg', siteUrl)],
   },
 };
 

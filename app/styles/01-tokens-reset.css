@@ -1,0 +1,361 @@
+:root {
+  --background: #f4f7f2;
+  --foreground: #17221b;
+  --card: #ffffff;
+  --card-foreground: #17221b;
+  --popover: #ffffff;
+  --popover-foreground: #17221b;
+  --primary: #2454ff;
+  --primary-foreground: #ffffff;
+  --secondary: #dfe8ff;
+  --secondary-foreground: #17221b;
+  --muted: #e8ece7;
+  --muted-foreground: #5f6c63;
+  --accent: #ff6547;
+  --accent-foreground: #17221b;
+  --destructive: #c73232;
+  --border: #cbd3cc;
+  --input: #9ba79f;
+  --ring: #2454ff;
+  --paper: #f4f7f2;
+  --ink: #17221b;
+  --blue: #2454ff;
+  --blue-soft: #dfe8ff;
+  --coral: #ff6547;
+  --mint: #d9f3e2;
+  --yellow: #ffe76a;
+  --line: #cbd3cc;
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-mono: var(--font-utility);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/*
+ * Reset (ported from Tailwind preflight) and the base styles the deleted
+ * UI-kit Button/Input/Textarea components used to supply.
+ *
+ * Tailwind shipped preflight in `@layer base` and every component utility in
+ * `@layer utilities`, so all the hand-written rules in this file — which are
+ * unlayered — already won against both, whatever their specificity. Keeping
+ * the port inside cascade layers reproduces that ordering exactly: nothing
+ * below this point can be overridden by anything in `reset` or `controls`.
+ */
+
+@layer reset {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+
+  html {
+    tab-size: 4;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  b,
+  strong {
+    font-weight: bolder;
+  }
+
+  small {
+    font-size: 80%;
+  }
+
+  pre,
+  code,
+  kbd {
+    font-family: var(--font-mono), monospace;
+    font-size: 1em;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  /*
+   * `max-width`/`height: auto` stay scoped to img and video, exactly as
+   * Tailwind's preflight scopes them. Lucide icons render as <svg> with
+   * width="24" height="24" attributes and several rules below set only
+   * `width`, so an auto height would resize every icon on the page.
+   */
+  img,
+  svg,
+  video {
+    display: block;
+    vertical-align: middle;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+
+  button,
+  [role='button'] {
+    cursor: pointer;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  /* `opacity: 1` cancels Firefox's UA `::placeholder { opacity: 0.54 }`. */
+  ::placeholder {
+    opacity: 1;
+    color: color-mix(in srgb, currentcolor 50%, transparent);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  dialog {
+    color: inherit;
+  }
+}
+
+@layer controls {
+  /* UI-kit Button, default size — the shared box. */
+  .continue-button,
+  .copy-button,
+  .regenerate-button,
+  .share-button,
+  .open-sites-link,
+  .reset-button {
+    display: inline-flex;
+    height: 2rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding-inline: 0.625rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background-clip: padding-box;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: calc(1.25 / 0.875);
+    white-space: nowrap;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+  }
+
+  .continue-button svg,
+  .copy-button svg,
+  .regenerate-button svg,
+  .share-button svg,
+  .open-sites-link svg,
+  .reset-button svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  .continue-button:has([data-icon='inline-end']),
+  .copy-button:has([data-icon='inline-end']),
+  .regenerate-button:has([data-icon='inline-end']),
+  .share-button:has([data-icon='inline-end']),
+  .open-sites-link:has([data-icon='inline-end']),
+  .reset-button:has([data-icon='inline-end']) {
+    padding-right: 0.5rem;
+  }
+
+  .continue-button:active,
+  .copy-button:active,
+  .regenerate-button:active,
+  .share-button:active,
+  .open-sites-link:active,
+  .reset-button:active {
+    translate: 0 1px;
+  }
+
+  .continue-button:disabled,
+  .copy-button:disabled,
+  .regenerate-button:disabled,
+  .share-button:disabled,
+  .reset-button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* Default variant. */
+  .continue-button,
+  .copy-button,
+  .open-sites-link {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* Ghost variant. */
+  .reset-button,
+  .regenerate-button,
+  .share-button {
+    background: transparent;
+  }
+
+  .reset-button:hover,
+  .regenerate-button:hover,
+  .share-button:hover {
+    background: var(--muted);
+    color: var(--foreground);
+  }
+
+  /* UI-kit Input / Textarea. */
+  .recipe-input,
+  .recipe-textarea,
+  .prompt-editor {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--input);
+    border-radius: var(--radius-lg);
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition:
+      color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .recipe-input {
+    height: 2rem;
+    padding: 0.25rem 0.625rem;
+  }
+
+  .recipe-textarea,
+  .prompt-editor {
+    display: flex;
+    min-height: 4rem;
+    padding: 0.5rem 0.625rem;
+  }
+
+  .recipe-textarea {
+    field-sizing: content;
+  }
+
+  .recipe-input::placeholder,
+  .recipe-textarea::placeholder,
+  .prompt-editor::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .recipe-input:focus-visible,
+  .recipe-textarea:focus-visible,
+  .prompt-editor:focus-visible {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+
+  @media (width >= 48rem) {
+    .recipe-input,
+    .recipe-textarea,
+    .prompt-editor {
+      font-size: 0.875rem;
+      line-height: calc(1.25 / 0.875);
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+
+  /*
+   * Anchor jumps and focus-driven scrolling otherwise land flush with the
+   * viewport edge, underneath the 72px sticky header (WCAG 2.2 SC 2.4.11).
+   */
+  scroll-padding-top: 88px;
+}
+
+body {
+  /*
+   * next/font puts `--font-utility` on the class it applies to <body>, never on
+   * <html>. Resolving it at `:root` therefore yields the guaranteed-invalid
+   * value, which inherits down and kills every `var(--font-mono)` font-family.
+   * Re-declare the token here, where `--font-utility` actually exists.
+   */
+  --font-mono: var(--font-utility);
+  min-width: 320px;
+  margin: 0;
+  background:
+    linear-gradient(to right, rgb(23 34 27 / 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 48px 48px;
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.recipe-ticket:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
