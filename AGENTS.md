@@ -30,7 +30,7 @@ There is no CLI for ChatGPT Sites; versions are saved and deployed only from Cha
 2. Open chatgpt.com/sites, choose Site Recipe, then Edit.
 3. In the composer, ask for a deploy of an exact commit and say not to change code, for example: "Deploy commit `<sha>` from https://github.com/n3moxyz/site-recipe with Sites. Do not modify or regenerate any code; pull that exact commit, run `npm ci && npm run build`, save it as a version tied to that commit, deploy it, and reply with the version and URL."
 4. Every Sites deployment is production. To review first, ask for a saved version without deploying it.
-5. Verify the live site afterwards: the HTML should reference the expected commit's markers (for example `og.jpg`, the audience field) and `document.fonts` should report Geist Mono as loaded.
+5. Verify the live site afterwards: the HTML should reference the expected commit's markers (for example `og.jpg`, the audience field), `/og.png` should remain a working compatibility URL for the hackathon gallery, and `document.fonts` should report Geist Mono as loaded.
 
 ## Architecture
 
