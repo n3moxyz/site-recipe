@@ -3,21 +3,31 @@ import { describe, expect, it } from 'vitest';
 import {
   defaultPatternsFor,
   defaultSectionsFor,
+  mismatchHints,
   normalizePatterns,
   normalizeSections,
 } from './defaults';
 import { defaultRecipe, starters } from './starters';
 
 describe('starters', () => {
-  it('offers exactly the three original ideas', () => {
+  it('offers exactly three varied ideas', () => {
     expect(starters.map((starter) => starter.name)).toEqual([
-      'Neighborhood Table',
-      'Studio Index',
-      'Tiny Field Notes',
+      'Night Garden Walk',
+      'Sunday Kiln',
+      'Freelance Ledger',
     ]);
   });
 
-  it('loads Neighborhood Table by default', () => {
+  it('varies the page shape and visual direction across every idea', () => {
+    expect(new Set(starters.map(({ recipe }) => recipe.shape)).size).toBe(
+      starters.length,
+    );
+    expect(new Set(starters.map(({ recipe }) => recipe.direction)).size).toBe(
+      starters.length,
+    );
+  });
+
+  it('loads Night Garden Walk by default', () => {
     expect(defaultRecipe).toBe(starters[0].recipe);
   });
 
@@ -47,16 +57,26 @@ describe('starters', () => {
     }
   });
 
-  it('uses the shape starter set where the recipe follows it', () => {
+  it('uses coherent section and pattern sets', () => {
     expect(starters[0].recipe.sections).toEqual(defaultSectionsFor('event'));
     expect(starters[0].recipe.patterns).toEqual(defaultPatternsFor('event'));
-    expect(starters[1].recipe.sections).toEqual(
-      defaultSectionsFor('portfolio'),
-    );
-    expect(starters[1].recipe.patterns).toEqual(
-      defaultPatternsFor('portfolio'),
-    );
-    expect(starters[2].recipe.sections).toEqual(defaultSectionsFor('landing'));
-    expect(starters[2].recipe.patterns).toEqual(['plain']);
+    expect(starters[1].recipe.sections).toEqual([
+      'hero',
+      'gallery',
+      'faq',
+      'cta',
+    ]);
+    expect(starters[1].recipe.patterns).toEqual([
+      'accordion',
+      ...defaultPatternsFor('shop'),
+    ]);
+    expect(starters[2].recipe.sections).toEqual(defaultSectionsFor('product'));
+    expect(starters[2].recipe.patterns).toEqual(defaultPatternsFor('product'));
+  });
+
+  it('starts without mismatch hints', () => {
+    for (const { recipe } of starters) {
+      expect(mismatchHints(recipe)).toEqual([]);
+    }
   });
 });

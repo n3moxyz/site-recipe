@@ -1,52 +1,50 @@
 import type { Recipe } from './types';
 
-/**
- * Three complete, coherent recipes. The first one is what the app loads with,
- * exactly as the original page did.
- */
+/** Three complete, deliberately varied recipes. The first loads by default. */
 export const starters: Array<{ name: string; recipe: Recipe }> = [
   {
-    name: 'Neighborhood Table',
+    name: 'Night Garden Walk',
     recipe: {
-      name: 'Neighborhood Table',
-      idea: 'A welcoming event page that helps neighbors find and host small communal dinners.',
-      audience: 'Neighbors who want to find or host small communal dinners',
-      direction: 'editorial',
+      name: 'Night Garden Walk',
+      idea: 'A cinematic event page for a guided after-dark botanical walk, with the route, schedule, safety notes, and a clear RSVP.',
+      audience:
+        'Curious locals and amateur photographers looking for a memorable evening outdoors',
+      direction: 'cinematic',
       shape: 'event',
       sections: ['hero', 'how-it-works', 'gallery', 'proof', 'cta'],
       patterns: ['bento', 'accordion'],
-      motion: 'subtle',
+      motion: 'expressive',
       access: 'public',
     },
   },
   {
-    name: 'Studio Index',
+    name: 'Sunday Kiln',
     recipe: {
-      name: 'Studio Index',
-      idea: 'A compact portfolio for an independent designer, with selected work and an easy way to get in touch.',
+      name: 'Sunday Kiln',
+      idea: 'A warm small-shop site for a ceramicist selling a limited collection of hand-thrown cups, bowls, and serving pieces.',
       audience:
-        "Potential clients and collaborators looking at an independent designer's work",
-      direction: 'precise',
-      shape: 'portfolio',
-      sections: ['hero', 'gallery', 'proof', 'cta'],
-      patterns: ['carousel'],
-      motion: 'subtle',
-      access: 'public',
-    },
-  },
-  {
-    name: 'Tiny Field Notes',
-    recipe: {
-      name: 'Tiny Field Notes',
-      idea: 'A thoughtful publication for short observations about cities, objects, and everyday rituals.',
-      audience:
-        'Readers who enjoy short, thoughtful observations about everyday life',
+        'Home cooks and gift shoppers who value useful, handmade objects',
       direction: 'editorial',
-      shape: 'landing',
-      sections: ['hero', 'features', 'proof', 'cta'],
-      patterns: ['plain'],
-      motion: 'none',
-      access: 'email-code',
+      shape: 'shop',
+      sections: ['hero', 'gallery', 'faq', 'cta'],
+      patterns: ['accordion', 'carousel', 'dialog'],
+      motion: 'subtle',
+      access: 'public',
+    },
+  },
+  {
+    name: 'Freelance Ledger',
+    recipe: {
+      name: 'Freelance Ledger',
+      idea: 'A crisp product site for a lightweight client and invoice tracker built for independent creatives.',
+      audience:
+        'Freelancers who want proposals, project status, invoices, and payment reminders in one calm place',
+      direction: 'precise',
+      shape: 'product',
+      sections: ['hero', 'how-it-works', 'features', 'pricing', 'faq', 'cta'],
+      patterns: ['tabs', 'accordion'],
+      motion: 'subtle',
+      access: 'google',
     },
   },
 ];

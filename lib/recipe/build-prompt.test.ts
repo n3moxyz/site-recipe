@@ -13,14 +13,14 @@ import { starters } from './starters';
 import { emptyRecipe } from './types';
 import type { Recipe } from './types';
 
-const neighborhoodTable = `Build a website for ChatGPT Sites using this brief.
+const nightGardenWalk = `Build a website for ChatGPT Sites using this brief.
 
-Name: Neighborhood Table
+Name: Night Garden Walk
 Type: Event. Answer what, when, where, and who it is for above the fold, then make the RSVP or ticket action unmistakable.
-Audience: Neighbors who want to find or host small communal dinners
-Purpose: A welcoming event page that helps neighbors find and host small communal dinners.
+Audience: Curious locals and amateur photographers looking for a memorable evening outdoors
+Purpose: A cinematic event page for a guided after-dark botanical walk, with the route, schedule, safety notes, and a clear RSVP.
 
-Visual direction: Editorial. Strong type, generous rhythm, and a clear reading path. Lead with typography: a large serif or grotesque display face, generous line height, a single-column reading measure around 65 characters, and whitespace instead of boxes. Keep color to ink, paper, and one accent.
+Visual direction: Cinematic. Immersive imagery, larger moments, and deliberate reveals. Use full-bleed imagery or dark backgrounds, large display type with tight tracking, and deliberate spacing between a few big moments. Keep body text on solid backgrounds for readability.
 
 Page anatomy, in order: a clear site header; Hero (the promise and main action); How it works (a short, scannable sequence); Gallery (work, products, or atmosphere); Proof (results, quotes, or trusted names); Final action (a clear way to continue); a simple footer.
 
@@ -29,25 +29,27 @@ UI ingredients:
 - Accordion (expandable answers): good for optional detail, especially FAQs.
 Use each only where it helps the content. If a plain list would work better, use the list. Keep the interface easy to scan and keyboard accessible.
 
-Motion: Subtle. Soft reveals and responsive hover feedback. Fade-and-rise reveals of about 200ms on sections as they enter, gentle hover feedback on cards and buttons, nothing that loops. Respect reduced-motion preferences and never let animation delay the main task.
+Motion: Expressive. One memorable sequence plus richer section transitions. One signature moment (for example a staged hero reveal) and smooth section transitions, kept under 600ms, with everything else calm. Respect reduced-motion preferences and never let animation delay the main task.
 
 Access: Public. The site should not require an account.
 
 Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus states, concise copy, semantic structure, fast loading, and no decorative interaction that competes with the content.`;
 
-const studioIndex = `Build a website for ChatGPT Sites using this brief.
+const sundayKiln = `Build a website for ChatGPT Sites using this brief.
 
-Name: Studio Index
-Type: Portfolio. Let the work lead; keep chrome minimal and make contact effortless.
-Audience: Potential clients and collaborators looking at an independent designer's work
-Purpose: A compact portfolio for an independent designer, with selected work and an easy way to get in touch.
+Name: Sunday Kiln
+Type: Small shop. Show the products first, keep the collection small and browsable, and make price and buying obvious.
+Audience: Home cooks and gift shoppers who value useful, handmade objects
+Purpose: A warm small-shop site for a ceramicist selling a limited collection of hand-thrown cups, bowls, and serving pieces.
 
-Visual direction: Precise. Tight grids, useful labels, and calm technical confidence. Use a visible grid, compact monospaced labels for metadata, restrained type sizes, hairline rules, and a cool neutral palette with one signal color. Every element should look measured.
+Visual direction: Editorial. Strong type, generous rhythm, and a clear reading path. Lead with typography: a large serif or grotesque display face, generous line height, a single-column reading measure around 65 characters, and whitespace instead of boxes. Keep color to ink, paper, and one accent.
 
-Page anatomy, in order: a clear site header; Hero (the promise and main action); Gallery (work, products, or atmosphere); Proof (results, quotes, or trusted names); Final action (a clear way to continue); a simple footer.
+Page anatomy, in order: a clear site header; Hero (the promise and main action); Gallery (work, products, or atmosphere); FAQ (answer the last useful questions); Final action (a clear way to continue); a simple footer.
 
 UI ingredients:
+- Accordion (expandable answers): good for optional detail, especially FAQs.
 - Carousel (swipeable gallery): good for visual examples when order is not critical.
+- Dialog (focused pop-up): good for one short task that should not replace the page.
 Use each only where it helps the content. If a plain list would work better, use the list. Keep the interface easy to scan and keyboard accessible.
 
 Motion: Subtle. Soft reveals and responsive hover feedback. Fade-and-rise reveals of about 200ms on sections as they enter, gentle hover feedback on cards and buttons, nothing that loops. Respect reduced-motion preferences and never let animation delay the main task.
@@ -56,22 +58,25 @@ Access: Public. The site should not require an account.
 
 Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus states, concise copy, semantic structure, fast loading, and no decorative interaction that competes with the content.`;
 
-const tinyFieldNotes = `Build a website for ChatGPT Sites using this brief.
+const freelanceLedger = `Build a website for ChatGPT Sites using this brief.
 
-Name: Tiny Field Notes
-Type: Landing page. Tell one story top to bottom and repeat a single primary action.
-Audience: Readers who enjoy short, thoughtful observations about everyday life
-Purpose: A thoughtful publication for short observations about cities, objects, and everyday rituals.
+Name: Freelance Ledger
+Type: Product or app. Explain the value in one screen, show it working, then make trying it the obvious next step.
+Audience: Freelancers who want proposals, project status, invoices, and payment reminders in one calm place
+Purpose: A crisp product site for a lightweight client and invoice tracker built for independent creatives.
 
-Visual direction: Editorial. Strong type, generous rhythm, and a clear reading path. Lead with typography: a large serif or grotesque display face, generous line height, a single-column reading measure around 65 characters, and whitespace instead of boxes. Keep color to ink, paper, and one accent.
+Visual direction: Precise. Tight grids, useful labels, and calm technical confidence. Use a visible grid, compact monospaced labels for metadata, restrained type sizes, hairline rules, and a cool neutral palette with one signal color. Every element should look measured.
 
-Page anatomy, in order: a clear site header; Hero (the promise and main action); Features (what people can do or get); Proof (results, quotes, or trusted names); Final action (a clear way to continue); a simple footer.
+Page anatomy, in order: a clear site header; Hero (the promise and main action); How it works (a short, scannable sequence); Features (what people can do or get); Pricing (plans and what is included); FAQ (answer the last useful questions); Final action (a clear way to continue); a simple footer.
 
-UI ingredients: none beyond plain lists, headings, and links. Keep the interface easy to scan and keyboard accessible.
+UI ingredients:
+- Tabs (switchable views): good when people need to compare related content in one place.
+- Accordion (expandable answers): good for optional detail, especially FAQs.
+Use each only where it helps the content. If a plain list would work better, use the list. Keep the interface easy to scan and keyboard accessible.
 
-Motion: Nearly still. Only essential state changes. Calm and immediate. No scroll-triggered animation. Use instant state changes with clear hover and focus styles only. Respect reduced-motion preferences and never let animation delay the main task.
+Motion: Subtle. Soft reveals and responsive hover feedback. Fade-and-rise reveals of about 200ms on sections as they enter, gentle hover feedback on cards and buttons, nothing that loops. Respect reduced-motion preferences and never let animation delay the main task.
 
-Access: Email code. Use a six-digit passwordless email code and support all major email providers.
+Access: Google sign-in. Use Google OAuth and include a non-Google fallback if the audience is mixed.
 
 Quality bar: responsive from mobile to desktop, WCAG-aware contrast and focus states, concise copy, semantic structure, fast loading, and no decorative interaction that competes with the content.`;
 
@@ -118,16 +123,16 @@ function expectNoArticleBeforeLabel(prompt: string, label: string): void {
 }
 
 describe('buildPrompt starters', () => {
-  it('renders Neighborhood Table exactly', () => {
-    expect(buildPrompt(starters[0].recipe)).toBe(neighborhoodTable);
+  it('renders Night Garden Walk exactly', () => {
+    expect(buildPrompt(starters[0].recipe)).toBe(nightGardenWalk);
   });
 
-  it('renders Studio Index exactly', () => {
-    expect(buildPrompt(starters[1].recipe)).toBe(studioIndex);
+  it('renders Sunday Kiln exactly', () => {
+    expect(buildPrompt(starters[1].recipe)).toBe(sundayKiln);
   });
 
-  it('renders Tiny Field Notes exactly', () => {
-    expect(buildPrompt(starters[2].recipe)).toBe(tinyFieldNotes);
+  it('renders Freelance Ledger exactly', () => {
+    expect(buildPrompt(starters[2].recipe)).toBe(freelanceLedger);
   });
 
   it('is deterministic', () => {
@@ -239,13 +244,13 @@ describe('buildPrompt fallbacks', () => {
   it('collapses multi-line name and audience onto one line each', () => {
     const prompt = buildPrompt(
       withRecipe({
-        name: ' Neighborhood\nTable ',
-        audience: 'Neighbors\n\nwho   cook',
+        name: ' Night\nGarden Walk ',
+        audience: 'Curious\n\nlocal   walkers',
       }),
     );
-    expect(lineStartingWith(prompt, 'Name:')).toBe('Name: Neighborhood Table');
+    expect(lineStartingWith(prompt, 'Name:')).toBe('Name: Night Garden Walk');
     expect(lineStartingWith(prompt, 'Audience:')).toBe(
-      'Audience: Neighbors who cook',
+      'Audience: Curious local walkers',
     );
   });
 

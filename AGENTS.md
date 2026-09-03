@@ -49,3 +49,4 @@ There is no CLI for ChatGPT Sites; versions are saved and deployed only from Cha
 - Do not copy screenshots, animations, or proprietary prompts from reference catalogs.
 - Keep selections small and curated. This is a decision funnel, not a searchable encyclopedia.
 - Preserve the one-page, under-two-minute completion goal unless scope is explicitly expanded.
+- Unless the user says otherwise, finish every requested code or content change by committing it, pushing the active branch, and publishing the corresponding ChatGPT Site. Read-only requests do not trigger this rule.
