@@ -16,10 +16,21 @@ Use Node.js 22.13 or newer. No environment variables are required for the MVP.
 ## Commands
 
 - `npm run dev` — start the local Sites development server.
+  If font files 404 in dev after the project folder moves, delete the `.vinext/` cache: it stores absolute paths.
 - `npm run build` — create the deployable build.
 - `npm run lint` — run oxlint.
 - `npm run format` — run oxfmt.
 - `npm test` — run the `lib/recipe/*.test.ts` vitest suite.
+
+## Deploying
+
+There is no CLI for ChatGPT Sites; versions are saved and deployed only from ChatGPT web or the desktop app. `.openai/hosting.json` links this repository to the hosted project, and the Vite plugin copies it into `dist/` at build time.
+
+1. Merge to `main` on GitHub first. The Sites editor has a GitHub connection and can build a pinned commit.
+2. Open chatgpt.com/sites, choose Site Recipe, then Edit.
+3. In the composer, ask for a deploy of an exact commit and say not to change code, for example: "Deploy commit `<sha>` from https://github.com/n3moxyz/site-recipe with Sites. Do not modify or regenerate any code; pull that exact commit, run `npm ci && npm run build`, save it as a version tied to that commit, deploy it, and reply with the version and URL."
+4. Every Sites deployment is production. To review first, ask for a saved version without deploying it.
+5. Verify the live site afterwards: the HTML should reference the expected commit's markers (for example `og.jpg`, the audience field) and `document.fonts` should report Geist Mono as loaded.
 
 ## Architecture
 
