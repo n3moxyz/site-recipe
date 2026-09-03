@@ -27,9 +27,11 @@ export function RecipeBuilder() {
       <main>
         <output className="sr-only" aria-live="polite">
           Brief updated. {recipe.direction ? labels.direction : 'No'} direction,{' '}
-          {recipe.shape ? labels.shape : 'no page shape'},{' '}
-          {labels.sections.length} page sections, {labels.patterns.length} UI
-          ingredients, {recipe.motion ? labels.motion : 'no'} motion, and{' '}
+          {recipe.shape ? labels.shape : 'no page shape'}, page sections:{' '}
+          {labels.sections.length ? labels.sections.join(', ') : 'not chosen'}.
+          UI ingredients:{' '}
+          {labels.patterns.length ? labels.patterns.join(', ') : 'not chosen'}.{' '}
+          {recipe.motion ? labels.motion : 'no'} motion, and{' '}
           {recipe.access ? labels.access : 'no access choice'}.
         </output>
 

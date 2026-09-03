@@ -2,7 +2,7 @@ import type { MouseEvent } from 'react';
 import { ArrowRight, KeyRound } from 'lucide-react';
 
 import { accessOptions } from '@/lib/recipe/catalog';
-import type { Recipe } from '@/lib/recipe/types';
+import type { Recipe, UiPattern } from '@/lib/recipe/types';
 import { scrollToId } from './continue-button';
 import { recipeLabels } from './labels';
 
@@ -45,6 +45,24 @@ function TicketTopline({ titleId, briefPulse }: ToplineProps) {
   );
 }
 
+/** How many specimens the miniature window has room for. */
+const MAX_SPECIMENS = 6;
+
+/** A recognisable specimen of one UI pattern; the CSS draws each variant. */
+function IngredientMiniature({ pattern }: { pattern: UiPattern }) {
+  return (
+    <span
+      className={`scene-ingredient scene-ingredient--${pattern}`}
+      data-ingredient={pattern}
+    >
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
+
 /** Decorative preview of the described site; hidden from assistive tech. */
 function TicketWindow({ recipe }: { recipe: Recipe }) {
   const AccessIcon =
@@ -70,9 +88,11 @@ function TicketWindow({ recipe }: { recipe: Recipe }) {
             <b key={section} />
           ))}
         </span>
-        <span className="scene-patterns">
-          {recipe.patterns.slice(0, 6).map((pattern) => (
-            <b key={pattern} />
+        <span
+          className={`scene-ingredients scene-ingredients--${Math.min(recipe.patterns.length, MAX_SPECIMENS)}`}
+        >
+          {recipe.patterns.slice(0, MAX_SPECIMENS).map((pattern) => (
+            <IngredientMiniature key={pattern} pattern={pattern} />
           ))}
         </span>
         <span className="scene-access">
