@@ -149,6 +149,14 @@ h1 em {
   line-height: 1.5;
 }
 
+.intro-copy p {
+  margin-bottom: 1em;
+}
+
+.intro-copy p:last-child {
+  margin-bottom: 0;
+}
+
 .recipe-step {
   max-width: 900px;
   margin-top: clamp(72px, 10vw, 128px);
